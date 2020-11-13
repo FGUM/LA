@@ -14,14 +14,16 @@ Matrix = {
 		me.columns = columns;
 		
 		# Either copy data if provided and valid, or initialize with zeroes
-		if (data == nil or size(data) != rows * columns){
+		if (data == nil){
 		    me.data = [];
 		    setsize(me.data, rows * columns);
 		    foreach(cell; me.data)
 		        cell = 0;
-		} else {
-		    me.data = data;
-		}
+		} 
+		else if(size(data) != rows * columns)
+		    die("Raw data array has incorrect size: got (" ~ size(data) ~ ") expected (" ~ rows * columns ~ ")");
+        else
+            me.data = data;
 		
 		return me;
 	},
