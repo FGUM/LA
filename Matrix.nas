@@ -1,12 +1,16 @@
 #
 # Authors: Axel Paccalin.
 #
-# Version 0.1
+# Version 0.2
+#
+# Imported under "FGUM_LA"
 #
 
 Matrix = {
-    #! brief      : Array based constructor. 
-    #! param data : 4d-Complex coordinates of the quaternion (x, i, j, k).   
+    #! \brief Matrix constructor. 
+    #! \param rows: The amount of rows in the matrix (Strictly positive integer).   
+    #! \param columns: The amount of columns in the matrix (Strictly positive integer).
+    #! \param data: The raw data array of the matrix (Array)(must be of size rows*columns).
 	new: func(rows, columns, data=nil) {
 		var me = {parents: [Matrix]};
 		
@@ -28,10 +32,17 @@ Matrix = {
 		return me;
 	},
 	
+    #! \brief  Matrix cell id accessor. 
+    #! \param  r: The row of the cell we want the ID of (Positive integer).   
+    #! \param  c: The column of the cell we want the ID of (Positive integer).
+    #! \return The array id of the cell (Positive integer).
 	cellId: func(r, c){
 	    return r * me.columns + c;
 	},
 	
+	#! \brief  Matrix-Matrix multiplication operator. 
+    #! \param  other: The right hand side Matrix to multiply with (Matrix).
+    #! \return The resulting Matrix (Matrix).
 	matMult: func(other){
 	    if(me.columns != other.rows)
 	        die("Argument Exception: Invalid matrix * matrix shape multiplication");
@@ -46,6 +57,9 @@ Matrix = {
         return result;
 	},
 	
+	#! \brief  Matrix-Vector multiplication operator. 
+    #! \param  vec: The right hand side Vector to multiply with (Array).
+    #! \return The resulting Vector (Array).
 	vecMult: func(vec){
 	    if(size(vec) != me.rows)
 	        die("Argument Exception: Invalid vector * matrix shape multiplication");
@@ -62,6 +76,8 @@ Matrix = {
         return result;
 	},
 	
+	#! \brief  Matrix transpose unary operator. 
+    #! \return The transposed matrix (Matrix).
 	transpose: func(){
 	    var result = Matrix.new(me.columns, me.rows);
 	    
@@ -73,7 +89,10 @@ Matrix = {
 	},
 };
 
+# Matrix identity: (<In> as: [for any Mrc where c=n, Mrc * In = Mrc] and [for any Mrc where r=n, In * Mrc = Mrc]).
 Identity = {
+    #! \brief Matrix identity constructor. 
+    #! \param dim: The identity dimension.   
     new: func(dim) {
         var me = {parents: [Quaternion, Matrix.new(dim, dim)]};
         
