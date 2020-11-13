@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<PropertyList>
-	<file>Aircraft/Mirage-2000/Nasal/LA/Vector.nas</file>
-	<file>Aircraft/Mirage-2000/Nasal/LA/Quaternion.nas</file>
-	<file>Aircraft/Mirage-2000/Nasal/LA/Matrix.nas</file>
-	<file>Aircraft/Mirage-2000/Nasal/LA/Transform.nas</file>
-</PropertyList>
