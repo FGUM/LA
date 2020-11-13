@@ -103,8 +103,8 @@ Vector = {
     orthogonalProjection: func(support){
         var supMag = support.magnitude();
         if(supMag == 0)
-            die("Orthogonal projection on a null vector referential");
+            die("Orthogonal projection on a null vector support");
         
-        return me.dot(ref) / supMag;
+        return me.dot(support) / supMag;
     },
 };
