@@ -53,11 +53,15 @@ Vector = {
 	         + me.data[2] * other.data[2];
 	},
 	
+
+	squaredMagnitude: func(){
+	    return math.pow(me.data[0],2)
+	          +math.pow(me.data[1],2)
+	          +math.pow(me.data[2],2);
+	},
+	
 	magnitude: func(){
-	    return math.sqrt(
-	        math.pow(me.data[0],2)
-	       +math.pow(me.data[1],2)
-	       +math.pow(me.data[2],2));
+	    return math.sqrt(me.squaredMagnitude());
 	},
 	
 	normalize: func(){
