@@ -69,8 +69,8 @@ Quaternion = {
         # Pre-compute values to avoid multiple computation & lighten syntax;
         var xx = me.data[0] * me.data[0];
         var xi = me.data[0] * me.data[1];
-        var wk = me.data[0] * me.data[2];
-        var wz = me.data[0] * me.data[3];
+        var xj = me.data[0] * me.data[2];
+        var xk = me.data[0] * me.data[3];
         var ii = me.data[1] * me.data[1];
         var ij = me.data[1] * me.data[2];
         var ik = me.data[1] * me.data[3];
@@ -80,9 +80,9 @@ Quaternion = {
         
         
         if(order == EULER_ORDER.ZYX)
-            return me.threeAxisRotation(2*(ij + wz),
+            return me.threeAxisRotation(2*(ij + xk),
                                         xx + ii - jj - kk,
-                                        -2*(ik - wk),
+                                        -2*(ik - xj),
                                         2*(jk + xi),
                                         xx - ii - jj + kk);
         else
