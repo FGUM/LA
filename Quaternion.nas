@@ -1,7 +1,9 @@
 #
 # Authors: Axel Paccalin.
 #
-# Version 0.1
+# Version 0.2
+#
+# Imported under "FGUM_LA"
 #
 
 EULER_ORDER = {
@@ -14,8 +16,8 @@ Quaternion = {
     yAxis: Vector.new([0, 1, 0]),
     zAxis: Vector.new([0, 0, 1]),
     
-    #! brief:     : Array based constructor.
-    #! param data : 4d-Complex coordinates of the quaternion (x, i, j, k).   
+    #! \brief Array based constructor.
+    #! \param data: 4d-Complex coordinates of the quaternion (x, i, j, k) (Array).   
 	new: func (data=nil) {
 		var me = {parents: [Quaternion]};
 		
@@ -25,6 +27,9 @@ Quaternion = {
 		return me;
 	},
 	
+	#! \brief  Quaternion-Quaternion multiplication operator. 
+    #! \param  other: The right hand side Quaternion to multiply with (Quaternion).
+    #! \return The resulting Quaternion (Quaternion).
 	quatMult: func(other){
 	    return Quaternion.new([
 	       -me.data[1]*other.data[1] - me.data[2]*other.data[2] - me.data[3]*other.data[3] + me.data[0]*other.data[0],
@@ -33,10 +38,14 @@ Quaternion = {
 	        me.data[1]*other.data[2] - me.data[2]*other.data[1] + me.data[3]*other.data[0] + me.data[0]*other.data[3]]);
 	},
 	
+	#! \brief  Unary conjugate operator. 
+    #! \return The conjugate (Quaternion).
 	conjugate: func(){
 	    return Quaternion.new([me.data[0], -me.data[1], -me.data[2], -me.data[3]]);
 	},
 	
+	#! \brief  Magnitude computed accessor. 
+    #! \return The magnitude (Positive scalar).
 	magnitude: func(){
 	    return math.sqrt(
 	        math.pow(me.data[0],2)
@@ -45,6 +54,7 @@ Quaternion = {
 	       +math.pow(me.data[3],2));
 	},
 	
+	#! \brief normalization method. 
 	normalize: func(){
 	    var mag = me.magnitude();
 	    
@@ -57,12 +67,18 @@ Quaternion = {
 	},
 	
 	# Compute a rotation around 3 relatives axes
+	
+	#! \brief  Compute a rotation around 3 relatives axes. 
+    #! \return The the 3 rotations (Array).
 	threeAxisRotation: func(r11, r12, r21, r31, r32){
         return [math.atan2(r31, r32),
                 math.asin(r21),
                 math.atan2(r11, r12)];
     },
-	
+		
+	#! \brief  Convert the quaternion to Euler angles. 
+    #! \param  order: Axis order used for the Euler representation (EULER_ORDER).  
+    #! \return The euler angles (Array).
     toEuler: func(order=nil){
         order = order != nil ? order : EULER_ORDER.ZYX; 
         
@@ -89,8 +105,12 @@ Quaternion = {
             Die("The requested euler order is either invalid or not implemented");
     },
     
-    # !WARNING! The vector parameter is expected to be normalized and not tested to save runtime!
-    fromVectorAngle: func(vec, theta){
+    #! \brief   Create a quaternion from a rotation angle around an arbitrary axis. 
+    #! \param   vec: The support vector (axis) for the rotation (Array).  
+    #! \param   theta: The rotation angle around the support vector (Radian).  
+    #! \return  The resulting Quaternion (Quaternion).
+    #! \warning The vector parameter is expected to be normalized and not tested to save runtime!
+    fromAxisAngle: func(vec, theta){
         theta /= 2;
         
         var st = math.sin(theta);
@@ -104,6 +124,10 @@ Quaternion = {
         return result;
     },
     
+    #! \brief   Generate a quaternion from Euler angles.
+    #! \param   data: The Euler angles (Array).  
+    #! \param   order: Axis order used for the Euler representation (EULER_ORDER).
+    #! \return  The resulting Quaternion (Quaternion).
     fromEuler: func(data, order=nil){
         order = order != nil ? order : EULER_ORDER.ZYX; 
         
