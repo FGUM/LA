@@ -55,5 +55,14 @@ Vector = {
 	    me.data[2] /= mag; 
 	    
 	    return me; 
-	}
+	},
+	
+
+    orthogonalProjection: func(support){
+        var supMag = support.magnitude();
+        if(supMag == 0)
+            die("Orthogonal projection on a null vector referential");
+        
+        return me.dot(ref) / supMag;
+    },
 };
