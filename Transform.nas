@@ -1,16 +1,23 @@
 #
 # Authors: Axel Paccalin.
 #
-# Version 0.1
+# Version 0.2
+#
+# Imported under "FGUM_LA"
 #
 
+# 3D transformation matrix.
 Transform3 = {
-    #! brief : Constructor.
+
+    #! \brief Transform3 constructor. 
     new: func () {
         var me = {parents: [Transform3, Identity.new(4)]};
         return me;
     },
     
+    #! \brief  Apply the space transformation to a vector. 
+    #! \param  vec: The vector to be transformed (Array).   
+    #! \return The transformed vector (Array).
     apply: func(vec){
         if(size(vec) == me.rows -1){
             setsize(vec, me.rows);
@@ -24,6 +31,8 @@ Transform3 = {
 };
 
 Translation3 = {
+    #! \brief Translation3 constructor. 
+    #! \param vec: The vector representing the translation (Array).   
     new: func (vec) {
         if(vec.size < 3)
             die("3D translations can only be constructed from 3D vectors");
@@ -39,6 +48,8 @@ Translation3 = {
 };
 
 Scale3 = {
+    #! \brief Scale3 constructor. 
+    #! \param vec: The vector representing the scaling (Array).   
     new: func (vec) {
         if(vec.size < 3)
             die("3D scales can only be constructed from 3D vectors");
@@ -54,6 +65,8 @@ Scale3 = {
 };
 
 Rotation3 = {
+    #! \brief Rotation3 constructor. 
+    #! \param quat: The Quaternion representing the rotation (Quaternion).   
     new: func (quat) {
         # Unit Quaternion(x, i, j, k) to 3d (4*4) rotation matrix:
         # | 1-2(jj+kk),   2(ij-kx),   2(ik+jx), 0 |
