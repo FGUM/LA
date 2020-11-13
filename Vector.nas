@@ -47,6 +47,12 @@ Vector = {
 	                       me.data[0] * other.data[1] - me.data[1] * other.data[0]]);
 	},
 	
+	dot: func(other){
+	    return me.data[0] * other.data[0]
+	         + me.data[1] * other.data[1]
+	         + me.data[2] * other.data[2];
+	},
+	
 	magnitude: func(){
 	    return math.sqrt(
 	        math.pow(me.data[0],2)
