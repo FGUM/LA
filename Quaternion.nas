@@ -10,9 +10,9 @@ EULER_ORDER = {
 };
 
 Quaternion = {   
-    xAxis: [1, 0, 0],
-    yAxis: [0, 1, 0],
-    zAxis: [0, 0, 1],
+    xAxis: Vector.new([1, 0, 0]),
+    yAxis: Vector.new([0, 1, 0]),
+    zAxis: Vector.new([0, 0, 1]),
     
     #! brief:     : Array based constructor.
     #! param data : 4d-Complex coordinates of the quaternion (x, i, j, k).   
@@ -107,9 +107,9 @@ Quaternion = {
     fromEuler: func(data, order=nil){
         order = order != nil ? order : EULER_ORDER.ZYX; 
         
-        var xRotation = Quaternion.fromVectorAngle(Quaternion.xAxis, data[0]);
-        var yRotation = Quaternion.fromVectorAngle(Quaternion.yAxis, data[1]);
-        var zRotation = Quaternion.fromVectorAngle(Quaternion.zAxis, data[2]);
+        var xRotation = Quaternion.fromAxisAngle(Quaternion.xAxis.data, data[0]);
+        var yRotation = Quaternion.fromAxisAngle(Quaternion.yAxis.data, data[1]);
+        var zRotation = Quaternion.fromAxisAngle(Quaternion.zAxis.data, data[2]);
         
                 
         if(order == EULER_ORDER.ZYX)
