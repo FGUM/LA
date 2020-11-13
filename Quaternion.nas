@@ -119,4 +119,22 @@ Quaternion = {
         else
             die("The requested euler order is either invalid or not implemented");
     },
+    
+    #! \brief   Generate a quaternion from a vector. 
+    #! \param   dir: The vector which direction we want to convert to a quaternion (Vector).
+    #! \return  The resulting Quaternion (Quaternion).
+    fromDirection: func(dir){
+        var vec = Vector.new(dir).normalize();
+        
+        var axis  = Quaternion.xAxis.cross(vec);
+        
+        if (axis.squaredMagnitude() == 0)
+            axis = Quaternion.yAxis;
+        else
+            axis.normalize();
+        
+        var angle = math.acos(Quaternion.xAxis.dot(vec));
+        
+        return Quaternion.fromAxisAngle(axis.data, angle);
+    },
 };
