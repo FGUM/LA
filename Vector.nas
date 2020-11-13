@@ -40,6 +40,13 @@ Vector = {
 	                       me.data[2] * scalar]);
 	},
 	
+	
+	cross: func(other){
+	    return Vector.new([me.data[1] * other.data[2] - me.data[2] * other.data[1],
+	                       me.data[2] * other.data[0] - me.data[0] * other.data[2],
+	                       me.data[0] * other.data[1] - me.data[1] * other.data[0]]);
+	},
+	
 	magnitude: func(){
 	    return math.sqrt(
 	        math.pow(me.data[0],2)
